@@ -31,8 +31,8 @@ Settings → Secrets and variables → Actions → New repository secret
 | 名称 | 说明 |
 |------|------|
 | `SAP_ACCOUNTS` | SAP BTP 登录账号和密码 复制SAP_ACCOUNTS.json的内容替换成自己的|
-| `TELEGRAM_BOT_TOKEN` | Telegram 机器人 Token（从 @BotFather 获取） |
-| `TELEGRAM_CHAT_ID` | Telegram Chat ID（可通过 @userinfobot 查询） |
+| `TG_BOT_TOKEN` | Telegram 机器人 Token（从 @BotFather 获取） |
+| `TTG_CHAT_ID` | Telegram Chat ID（可通过 @userinfobot 查询） |
 
 ---
 登陆账号采用json格式： <br> 
