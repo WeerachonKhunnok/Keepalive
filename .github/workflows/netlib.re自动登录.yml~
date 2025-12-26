@@ -1,0 +1,33 @@
+name: netlib.re自动登录
+
+on:
+  schedule:
+    - cron: "0 12 1 */2 *"  # 每两个月的第一天的 12:00 运行（UTC时间）
+  workflow_dispatch:
+
+jobs:
+  auto-login:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install Playwright
+        run: |
+          pip install --upgrade pip
+          pip install -r netlib-login/requirements.txt
+          playwright install chromium
+
+      - name: Run Keep Alive Login
+        env:
+          NETLIB_ACCOUNTS: ${{ secrets.NETLIB_ACCOUNTS }}
+          TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+        run: |
+          python -u netlib-login/autologin.py

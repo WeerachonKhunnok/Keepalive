@@ -232,7 +232,7 @@ class LeaflowAutoCheckin:
     def get_balance(self):
         """获取当前账号的总余额"""
         try:
-            logger.info("获取账号余额...")
+            logger.info("💰 获取账号余额...")
             
             # 跳转到仪表板页面
             self.driver.get("https://leaflow.net/dashboard")
@@ -265,7 +265,7 @@ class LeaflowAutoCheckin:
                             numbers = re.findall(r'\d+\.?\d*', text)
                             if numbers:
                                 balance = numbers[0]
-                                logger.info(f"找到余额: {balance}元")
+                                logger.info(f"💰 找到余额: {balance}元")
                                 return f"{balance}元"
                 except:
                     continue
@@ -620,8 +620,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-

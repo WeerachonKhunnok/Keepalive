@@ -1,0 +1,48 @@
+name: TG 多频道自动签到
+on:
+  workflow_dispatch: # 允许手动触发
+  schedule:
+    - cron: '10 0 * * *'
+
+jobs:
+  multi_checkin:
+    runs-on: ubuntu-latest
+    
+    env:
+      TG_API_ID: ${{ secrets.TG_API_ID }}
+      TG_API_HASH: ${{ secrets.TG_API_HASH }}
+      TG_SESSION_STR: ${{ secrets.TG_SESSION_STR }}
+      TG_BOT_TOKEN: ${{ secrets.TG_BOT_TOKEN }}
+      TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+
+    steps:
+    - name: ⬇️ 检出代码
+      uses: actions/checkout@v4
+      
+    - name: 🐍 安装 Python 环境
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+        cache: 'pip' # 启用缓存加速后续运行
+        
+    - name: 📦 安装 Python 依赖
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r tg-checkin/requirements.txt
+        
+    - name: 🚀 执行 CloudCat 自动签到
+      run: python -u tg-checkin/cloudcat.py
+      continue-on-error: true
+
+    - name: ⏳ 等待 30 秒
+      run: sleep 30
+
+    - name: 🚀 执行 SheerID 自动签到
+      run: python -u tg-checkin/sheerid.py
+      continue-on-error: true
+
+    - name: ⏳ 等待 30 秒
+      run: sleep 30
+
+    - name: 🚀 执行 icmp9 自动签到
+      run: python -u tg-checkin/icmp9.py

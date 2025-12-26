@@ -398,6 +398,13 @@ cat > "${config_dir}" << EOF
         "download_detour": "direct"
       },
       {
+        "tag": "gemini",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/google-gemini.srs",
+        "download_detour": "direct"
+      },
+      {
         "tag": "netflix",
         "type": "remote",
         "format": "binary",
@@ -407,11 +414,11 @@ cat > "${config_dir}" << EOF
     ],
     "rules": [
       {
-        "domain_suffix": ["gemini.google.com", "claude.ai", "grok.com"],
+        "domain_suffix": ["claude.ai", "grok.com"],
         "outbound": "wireguard-out"
       },      
       {
-        "rule_set": ["openai", "netflix"],
+        "rule_set": ["openai", "gemini", "netflix"],
         "outbound": "wireguard-out"
       }
     ],
